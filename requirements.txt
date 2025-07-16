@@ -1,0 +1,8 @@
+openai
+gtts
+moviepy
+diffusers
+transformers
+accelerate
+torch
+google-generativeai

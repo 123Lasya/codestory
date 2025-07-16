@@ -1,0 +1,20 @@
+Once upon a time, in a land filled with bouncy castles and lollipop trees, lived a mischievous little sprite named Pip. Pip loved adventures, especially ones that involved bouncing!
+
+**Scene 1: The Bouncy Castle Maze**
+
+Pip found a giant bouncy castle – not just any bouncy castle, but a bouncy castle *maze*!  It was HUGE, with bouncy rooms leading to more bouncy rooms, each one slightly different in colour and shape.  "This is amazing!" Pip squealed, bouncing right in.  He bounced into a red room, then a blue room, then a green room... each room was exactly like the one before, just a different color!  This was a *recursive* bouncy castle – a bouncy castle that kept repeating itself!
+
+
+**Scene 2:  Pip's Recursive Bounce**
+
+Pip bounced from one coloured room to the next, and each time, he thought, "This is fun!  I'll bounce just *one* more time!"  Then he'd bounce into another room, exactly like the last, but a different colour.  He bounced and bounced, following the same bouncing pattern again and again, like a bouncing ball repeating its pattern!  This is called a "recursive bounce" – a bounce that calls itself again and again.
+
+
+**Scene 3:  The Magical Exit**
+
+After what seemed like a hundred bounces (but was really a lot less!), Pip noticed something.  The bouncy rooms started to get smaller and smaller!  Finally, he bounced into a tiny, sparkly room, and – poof! – he was out of the maze!  He’d bounced his way out by following the recursive pattern until it became so small, it just disappeared!
+
+
+**Scene 4:  The Lollipop Tree Reward**
+
+Pip landed on a giant lollipop tree, his reward for conquering the recursive bouncy castle!  He ate a rainbow-colored lollipop and giggled. "That was the best, most recursive adventure ever!" he exclaimed. He learned that recursion means something repeating itself until it stops at a certain point – like his bounces in the maze, getting smaller and smaller until he popped out!  And from that day on, Pip always remembered that even the trickiest adventures can be solved by following a repeating pattern, just like a recursive bounce!
