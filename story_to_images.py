@@ -1,40 +1,40 @@
 # story_to_images.py
-import requests
 import os
-import shutil
-import re
+from diffusers import StableDiffusionPipeline, DPMSolverMultistepScheduler
+import torch
 
-def clean_sentences(story):
-    # Split story into 4 clean, meaningful chunks
-    sentences = re.split(r'(?<=[.!?]) +', story)
-    chunk_size = max(1, len(sentences) // 4)
-    return [' '.join(sentences[i:i + chunk_size]) for i in range(0, len(sentences), chunk_size)]
+# Use high-performance scheduler
+pipe = StableDiffusionPipeline.from_pretrained(
+    "runwayml/stable-diffusion-v1-5",
+    torch_dtype=torch.float16,  # use float16 for faster generation
+    revision="fp16"  # make sure you get the fp16 weights
+)
 
-def download_lexica_images(prompt_list):
-    os.makedirs("images", exist_ok=True)
-    
-    for i, prompt in enumerate(prompt_list):
-        print(f"Generating image for: {prompt}")
-        url = f"https://lexica.art/api/v1/search?q={prompt}"
-        response = requests.get(url)
+# Enable faster and better inference using DPM scheduler
+pipe.scheduler = DPMSolverMultistepScheduler.from_config(pipe.scheduler.config)
 
-        if response.status_code == 200:
-            results = response.json().get("images", [])
-            if results:
-                image_url = results[0].get("srcSmall")
-                img_data = requests.get(image_url, stream=True)
-                with open(f"images/image_{i+1}.jpg", "wb") as f:
-                    shutil.copyfileobj(img_data.raw, f)
-                print(f"Saved images/image_{i+1}.jpg")
-            else:
-                print(f"No images found for prompt: {prompt}")
-        else:
-            print("Failed to connect to Lexica API")
+# Send to GPU
+device = "cuda" if torch.cuda.is_available() else "cpu"
+pipe = pipe.to(device)
+
+# Enable memory efficient attention (speeds up with lower memory usage)
+pipe.enable_xformers_memory_efficient_attention()
+
+os.makedirs("images", exist_ok=True)
+
+def generate_images_from_story():
+    with open("story.txt", "r") as f:
+        lines = f.readlines()
+
+    for i, line in enumerate(lines):
+        if line.strip():
+            print(f"Generating image for: {line.strip()[:60]}...")
+            image = pipe(
+                line.strip(),
+                num_inference_steps=25,  # ~25 steps balances quality and speed
+                guidance_scale=7.5       # default good value for quality
+            ).images[0]
+            image.save(f"images/scene_{i+1}.png")
 
 if __name__ == "__main__":
-    # Read the story
-    with open("story.txt", "r") as file:
-        story = file.read()
-    
-    prompts = clean_sentences(story)
-    download_lexica_images(prompts)
+    generate_images_from_story()
